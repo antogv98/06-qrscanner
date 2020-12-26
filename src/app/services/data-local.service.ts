@@ -109,5 +109,15 @@ export class DataLocalService {
     
   }
 
+  async deleteRegistro(indice : number){
+
+    await this.cargarStorage();
+
+    this.guardados.splice(indice,1);
+
+    this.storage.set('registros',this.guardados);
+
+  }
+
 
 }
