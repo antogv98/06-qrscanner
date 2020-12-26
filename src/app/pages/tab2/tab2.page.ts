@@ -10,6 +10,8 @@ export class Tab2Page {
   constructor(public dataLocalService:DataLocalService) {}
 
   enviarCorreo(){
+
+    this.dataLocalService.enviarCorreo();
   }
 
 
