@@ -13,7 +13,7 @@ import { Storage } from '@ionic/storage';
 export class Tab2Page{
 
 
-
+  darkOn:boolean=true;
 
 
   constructor(public dataLocalService:DataLocalService,
@@ -21,9 +21,15 @@ export class Tab2Page{
     private platform:Platform,
     private storage: Storage) {
 
+    }
 
-    
+    ionViewWillEnter(){   
+      this.cargarDarkmode();
+      this.runDark();
+    }
 
+    async cargarDarkmode(){
+      this.darkOn = await this.storage.get('darkOnrStorage') || false;  
     }
 
 
@@ -54,6 +60,21 @@ export class Tab2Page{
 
   delete(indice){
     this.dataLocalService.deleteRegistro(indice);
+  }
+
+  changeDark(event){
+    this.darkOn=event.detail.checked;
+    this.storage.set('darkOnrStorage',this.darkOn);
+    this.runDark();
+  }
+
+
+  runDark(){
+    if(this.darkOn){
+      document.body.setAttribute('color-theme','dark');
+    }else{
+      document.body.setAttribute('color-theme','');
+    }
   }
 
 

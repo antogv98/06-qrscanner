@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { DataLocalService } from '../../services/data-local.service';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -16,10 +17,25 @@ export class Tab1Page {
   };
 
   constructor(private barcodeScanner: BarcodeScanner,
-    private dataLocalService:DataLocalService) {}
+    private dataLocalService:DataLocalService,
+    private storage: Storage) {
+
+    
+
+    }
 
   ionViewWillEnter(){
+    this.cargarDarkmode();
     this.scan();
+  }
+
+  async cargarDarkmode(){
+    const darkOn = await this.storage.get('darkOnrStorage') || false;  
+    if(darkOn){
+      document.body.setAttribute('color-theme','dark');
+    }else{
+      document.body.setAttribute('color-theme','');
+    }
   }
 
 
@@ -34,7 +50,7 @@ export class Tab1Page {
      }).catch(err => {
          console.log('Error', err);
         // this.dataLocalService.guardarRegistro('QRcode', 'https://www.twitch.tv/');
-         this.dataLocalService.guardarRegistro('QRcode', 'geo:40.73151796986687,-74.06087294062502');
+        // this.dataLocalService.guardarRegistro('QRcode', 'geo:40.73151796986687,-74.06087294062502');
          
          
      });
