@@ -1,8 +1,6 @@
-<ion-header class="ion-no-border" [translucent]="true">
+<ion-header class="ion-no-border" [translucent]="true" >
   <ion-toolbar>
-    <ion-title>
-      History
-    </ion-title>
+    <ion-label slot="start" style="margin: 10px"><h1>History</h1></ion-label>
     <ion-label slot="end">Dark mode</ion-label>
     <ion-toggle (ionChange)="changeDark($event)" slot="end" [(ngModel)]="darkOn"></ion-toggle>
 
@@ -14,15 +12,23 @@
     </ion-buttons>
 
   </ion-toolbar>
+  
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-no-border">
+<ion-content [fullscreen]="true" class="ion-no-border" >
 
-  <ion-list *ngIf="dataLocalService.guardados.length>0">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="scrollToTop()">
+      <ion-icon name="arrow-up-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+     <ion-list *ngIf="dataLocalService.guardados.length>0"  lines="none" >
    
-    <ion-item-sliding detail *ngFor="let registro of dataLocalService.guardados;let i = index">
+    <ion-item-sliding detail *ngFor="let registro of dataLocalService.guardados;let i = index" >
 
-        <ion-item-options side="start">
+        <ion-item-options side="start" >
             <ion-item-option (click)="abrirRegistro(registro)">
                 <ion-icon slot="icon-only" name="open-outline"></ion-icon>
             </ion-item-option>
@@ -39,9 +45,9 @@
 
         
         
-        <ion-item>
+        <ion-item fixed>
               <ion-icon slot="start" name="chevron-back-outline" style="zoom:0.5;" ></ion-icon>
-              <ion-icon slot="start" [name]="registro.icon" color="primary"></ion-icon>
+              <ion-icon slot="start"  [name]="registro.icon" color="primary"></ion-icon>
               <ion-label>
                 <h2>{{registro.text}}</h2>
                 <p>{{registro.created|date: 'medium'}}</p>
@@ -52,7 +58,10 @@
         
         
     </ion-item-sliding>
+ 
 </ion-list>
+
+ 
 
   <!-- <ion-list *ngIf="dataLocalService.guardados.length>0">
     <ion-item detail *ngFor="let registro of dataLocalService.guardados"

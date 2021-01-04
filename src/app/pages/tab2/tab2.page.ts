@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataLocalService } from '../../services/data-local.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 })
 export class Tab2Page{
 
+  @ViewChild(IonContent, {static: true}) content: IonContent;
 
   darkOn:boolean=true;
 
@@ -75,6 +76,10 @@ export class Tab2Page{
     }else{
       document.body.setAttribute('color-theme','');
     }
+  }
+
+  scrollToTop() {
+    this.content.scrollToTop(400);
   }
 
 
